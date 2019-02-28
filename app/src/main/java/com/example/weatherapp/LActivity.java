@@ -36,6 +36,7 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
     private WifiManager wifiManager ;
     private java.util.List<android.net.wifi.ScanResult> results ;
     private ArrayList<String> arrayList = new ArrayList<>();
+    private ArrayList<String> Macs = new ArrayList<>();
 
 
     int[] IMAGES = {R.drawable.esp,R.drawable.esps,R.drawable.epsa,R.drawable.espb,R.drawable.espc,R.drawable.espd,R.drawable.espe,R.drawable.espf} ;
@@ -111,7 +112,8 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
             unregisterReceiver(this);
 
            for (android.net.wifi.ScanResult scanResult:results){
-               arrayList.add(scanResult.SSID + " - " + scanResult.capabilities);
+               arrayList.add(scanResult.SSID );
+               Macs.add("MAC: "+scanResult.BSSID);
 //               CustomAdapter.notifyDataSetChanged();
 
             }
@@ -150,11 +152,12 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
 
             ImageView image = (ImageView) convertView.findViewById(R.id.image);
             TextView Name = (TextView)convertView.findViewById(R.id.Name) ;
+            TextView MAC = (TextView)convertView.findViewById(R.id.Mac) ;
 
             image.setImageResource(IMAGES [position]);
             if (arrayList.size()!=0)
             Name.setText(arrayList.get(position));  //names[position]
-
+            MAC.setText(Macs.get(position));
             return convertView;
         }
     }
