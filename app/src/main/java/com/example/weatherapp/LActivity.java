@@ -1,24 +1,48 @@
 package com.example.weatherapp;
 
+
+import android.bluetooth.le.ScanResult;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class LActivity extends AppCompatActivity {
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class LActivity <wifiManager extends ScanResult> extends AppCompatActivity  {
 
 
     private ListView List ;
+    private Button scanResult;
 
-    int[] IMAGES = {R.drawable.sql,R.drawable.java,R.drawable.js,R.drawable.csharp,R.drawable.python,R.drawable.cplus,R.drawable.group} ;
 
-    String[] names = {"SQL", "JAVA", "JAVA SCRIPT","C#", "PYTHON","C++", "ABDO,SOBHY,BILLY BASHA"};
+    private WifiManager wifiManager ;
+    private java.util.List<android.net.wifi.ScanResult> results ;
+    private ArrayList<String> arrayList = new ArrayList<>();
+
+
+    int[] IMAGES = {R.drawable.esp,R.drawable.esps,R.drawable.epsa,R.drawable.espb,R.drawable.espc,R.drawable.espd,R.drawable.espe,R.drawable.espf} ;
+
+    //String[] names = {"Esp1","Esp2"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +50,34 @@ public class LActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
 
 
+
+
         List = (ListView) findViewById(R.id.List);
+        scanResult = (Button)findViewById(R.id.scanResult);
+
+        scanResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              scanWifi();
+            }
+        });
+
+
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        if(!wifiManager.isWifiEnabled()){
+
+            Toast.makeText(this,"Wifi is disabled",Toast.LENGTH_SHORT).show();
+            wifiManager.setWifiEnabled(true);
+            scanWifi();
+        }
+
+
+
+
+
+
+
 
      List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
          @Override
@@ -37,16 +88,47 @@ public class LActivity extends AppCompatActivity {
      });
 
 
-        CustomAdapter customAdapter = new CustomAdapter();
-        List.setAdapter(customAdapter);
+//        scanWifi();
+//        CustomAdapter customAdapter = new CustomAdapter();
+//        List.setAdapter(customAdapter);
+
+    }
+
+    private void scanWifi(){
+
+        arrayList.clear();
+        registerReceiver(wifiReceiver,new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+        wifiManager.startScan();
+        Toast.makeText(this,"Scanning Wifi....",Toast.LENGTH_SHORT).show();
 
 
     }
 
-    class  CustomAdapter extends BaseAdapter{
+    BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            results = wifiManager.getScanResults();
+            unregisterReceiver(this);
+
+           for (android.net.wifi.ScanResult scanResult:results){
+               arrayList.add(scanResult.SSID + " - " + scanResult.capabilities);
+//               CustomAdapter.notifyDataSetChanged();
+
+            }
+            CustomAdapter customAdapter = new CustomAdapter();
+            List.setAdapter(customAdapter);
+
+        }
+    };
+
+
+
+
+    class  CustomAdapter extends BaseAdapter {
 
 
         @Override
+
         public int getCount() {
             return IMAGES.length;
         }
@@ -70,7 +152,9 @@ public class LActivity extends AppCompatActivity {
             TextView Name = (TextView)convertView.findViewById(R.id.Name) ;
 
             image.setImageResource(IMAGES [position]);
-            Name.setText(names[position]);
+            if (arrayList.size()!=0)
+            Name.setText(arrayList.get(position));  //names[position]
+
             return convertView;
         }
     }

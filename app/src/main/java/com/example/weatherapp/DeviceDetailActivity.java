@@ -1,11 +1,14 @@
 package com.example.weatherapp;
 
-import android.support.v7.app.AppCompatActivity;
+import  android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 
+
+
 public class DeviceDetailActivity extends AppCompatActivity {
+
+   // private ClientThread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,5 +17,7 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
 
         TextView Text = (TextView)findViewById(R.id.Text) ;
+
+        
     }
 }

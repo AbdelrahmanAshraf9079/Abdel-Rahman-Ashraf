@@ -8,22 +8,22 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="402dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="402dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,16 +34,16 @@
         android:inputType="textPersonName|textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.007" />
 
     <Button
         android:id="@+id/Login"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="416dp"
-        android:layout_height="84dp"
+        android:layout_width="350dp"
+        android:layout_height="89dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.132" />
 
     <Button
         android:id="@+id/register"
