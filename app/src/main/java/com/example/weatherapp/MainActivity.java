@@ -1,16 +1,10 @@
 package com.example.weatherapp;
 
-import  android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.ProgressDialog;
-import android.bluetooth.le.ScanResult;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.net.wifi.WifiManager;
-import android.support.annotation.Keep;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,12 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import android.support.v4.app.FragmentActivity;
+
 
 //-------------
 
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.Manifest;
