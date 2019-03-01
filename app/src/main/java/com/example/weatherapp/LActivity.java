@@ -112,10 +112,11 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
             unregisterReceiver(this);
 
            for (android.net.wifi.ScanResult scanResult:results){
-               arrayList.add(scanResult.SSID );
-               Macs.add("MAC: "+scanResult.BSSID);
+               if(!scanResult.SSID.equals("MyESP8266AP")) {
+                   arrayList.add(scanResult.SSID);
+                   Macs.add("MAC: " + scanResult.BSSID);
 //               CustomAdapter.notifyDataSetChanged();
-
+               }
             }
             CustomAdapter customAdapter = new CustomAdapter();
             List.setAdapter(customAdapter);
