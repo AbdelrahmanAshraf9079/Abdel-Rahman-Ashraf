@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 public class DeviceDetailActivity extends AppCompatActivity {
 
     DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference myRef = database.child("ESP1");
+    DatabaseReference myRef = database.child(LActivity.esp);
     private static final String TAG = "READ";
     // private ClientThread thread;
 

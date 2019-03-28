@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class LActivity <wifiManager extends ScanResult> extends AppCompatActivity  {
@@ -31,7 +33,7 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
 
     private ListView List ;
     private Button scanResult;
-
+    static  String esp = "" ;
 
     private WifiManager wifiManager ;
     private java.util.List<android.net.wifi.ScanResult> results ;
@@ -77,13 +79,15 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
 
 
 
-
-
-
      List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
          @Override
          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           TextView t= view.findViewById(R.id.Name);
+           String name = t.getText() + "";
+           Log.i("Hi",name);
+           esp = name;
              Intent i = new Intent (LActivity.this, DeviceDetailActivity.class);
+
                      startActivity(i);
          }
      });
@@ -112,11 +116,11 @@ public class LActivity <wifiManager extends ScanResult> extends AppCompatActivit
             unregisterReceiver(this);
 
            for (android.net.wifi.ScanResult scanResult:results){
-               if(!scanResult.SSID.equals("MyESP8266AP")) {
+             //  if(!scanResult.SSID.equals("MyESP")) {
                    arrayList.add(scanResult.SSID);
                    Macs.add("MAC: " + scanResult.BSSID);
 //               CustomAdapter.notifyDataSetChanged();
-               }
+              // }
             }
             CustomAdapter customAdapter = new CustomAdapter();
             List.setAdapter(customAdapter);
